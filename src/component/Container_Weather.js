@@ -59,7 +59,7 @@ const ContainerWeather = () =>{
     /*Aqui cuidamos que el estado de apiWeather no arroje un valor null y insetamos los datos 
     de la Api Weather a los estados*/
     useEffect(() =>{
-        if(apiWeather){
+        if(apiWeather !== null){
             setTempC(apiWeather.current.temp_c)
             setTempF(apiWeather.current.temp_f)
             setDescriptionWeather(apiWeather.current.condition.text)
