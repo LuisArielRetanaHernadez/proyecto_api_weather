@@ -51,7 +51,7 @@ const ContainerWeather = () =>{
             const response = await fetch(urlWeather).then(response => response.json()).catch(err => err)
             setApiWeather(response)
         }
-        
+
         //lo que hacemos es cuando los dos estados coordinatesLat y coordinatesLon ya hayan recoletado la ubicacion actual se ejecute
         //la funcion consultationWeather para que se haga la consulta ya con las cordenadas
         if(coordinatesLat !== 0 && coordinatesLon !== 0){
@@ -69,9 +69,12 @@ const ContainerWeather = () =>{
             setNameCountry(apiWeather.location.country)
             setNameLocation(apiWeather.location.name)
             setNameRegion(apiWeather.location.region)
-            setTemperatureWeather(apiWeather.current.temp_c)
         }
     },[apiWeather])
+
+    useEffect(() =>{
+        setTemperatureWeather(tempC)
+    },[tempC])
 
     /*****FUNCION QUE CONVIERTE LA TEMPERATURA DE CELSIUS A FAHRENHEIT O VICERVESA*****/
     const convert = () =>{
