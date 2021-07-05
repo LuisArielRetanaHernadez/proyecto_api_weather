@@ -69,7 +69,6 @@ const ContainerWeather = () =>{
             setNameLocation(apiWeather.location.name)
             setNameRegion(apiWeather.location.region)
             setTemperatureWeather(apiWeather.current.temp_c)
-            
         }
     },[apiWeather])
 
@@ -100,7 +99,7 @@ const ContainerWeather = () =>{
         <section id="Container-Weather">
             <h2 className="title-weather">Clima</h2>
             <Location nameCountry={nameCountry} nameLocation={nameLocation} nameRegion={nameRegion} /> 
-            <ContainerIconoWeather icono={iconoWeather} />
+            <ContainerIconoWeather icono={iconoWeather} textIcono={descriptionWeather} />
             <CharacteristicsWeather description={descriptionWeather} temperature={temperatureWeather} symbolTemp={symbolTemp}/>
             <ButtonTransformTem functionConver={convert} symbolTemp={symbolTemp}/>
         </section>
