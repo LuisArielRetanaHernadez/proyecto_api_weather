@@ -4,21 +4,22 @@ import ContainerIconoWeather from './ContainerIconoWeather'
 import CharacteristicsWeather from './Characteristics_Weather'
 import { useEffect, useState } from 'react';
 const ContainerWeather = () =>{
-    /*Estados del componente*/
-    const [apiWeather, setApiWeather] = useState(null)
-    const [tempF, setTempF] = useState(0)
-    const [tempC, setTempC] = useState(0)
-    const [nameLocation, setNameLocation] = useState('')
-    const [nameCountry, setNameCountry] = useState('')
-    const [nameRegion, setNameRegion] = useState('')
-    const [descriptionWeather, setDescriptionWeather] = useState('')
-    const [temperatureWeather, setTemperatureWeather] = useState(0)
-    const [iconoWeather, setIconoWeather] = useState('')
-    const [coordinatesLat, setCoordinatesLat] = useState(0)
-    const [coordinatesLon, setCoordinatesLon] = useState(0)
-    const [symbolTemp, setSymbolTemp] = useState('C')
 
-    /*Obteniedo la ubicacion actual del usuario*/
+    /*****ESTADOS DEL COMPONENTE*****/
+    const [apiWeather, setApiWeather] = useState(null)//Aqui es donde se aloja los resultados de la Api Weather
+    const [tempF, setTempF] = useState(0)//Aqui es donde alojamos la temperatura en Fahrenheit
+    const [tempC, setTempC] = useState(0)//Aqui es donde alojamos la temperatura en Celsius
+    const [nameLocation, setNameLocation] = useState('')//Aqui es donde alojamos el nombre de la localidad del usuario
+    const [nameCountry, setNameCountry] = useState('')//Aqui es donde alojamos el nombre del pais del usuario
+    const [nameRegion, setNameRegion] = useState('')//Aqui es donde alojamos el nombre de la region(estado) del usuario
+    const [descriptionWeather, setDescriptionWeather] = useState('')//Aqui es donde alojamos la descripcion del clima
+    const [temperatureWeather, setTemperatureWeather] = useState(0)//Aqui es donde alojamos la temperatura que se le mostrara al usuario
+    const [iconoWeather, setIconoWeather] = useState('')//Aqui es donde alojamos el icono que describe el clima
+    const [coordinatesLat, setCoordinatesLat] = useState(0)//Aqui es donde alojamos la latitud(cordenadas) del usuario
+    const [coordinatesLon, setCoordinatesLon] = useState(0)//Aqui es donde alojamos la longitud(cordenadas) del usuario
+    const [symbolTemp, setSymbolTemp] = useState('C')//Aqui es donde se aloja el simbolo de la temperatura del clima
+
+    /*****OBTENIENDO LA UBICACION ACTUAL(POR MEDIO DE CORDENADAS) DEL USUARIO*****/
     useEffect(() =>{
         const geoUser = () =>{
 
@@ -43,21 +44,22 @@ const ContainerWeather = () =>{
         geoUser()
     },[])
 
-    /*Consulta a la Api Weather*/
+    /*****CONSULTA DE LA API WEATHER*****/
     useEffect(() =>{
         const consultationWeather = async () =>{
             const urlWeather = `https://api.weatherapi.com/v1/current.json?key=c7db0c19785644e9a26231420210307&q=${coordinatesLat}, ${coordinatesLon}&aqi=no`
             const response = await fetch(urlWeather).then(response => response.json()).catch(err => err)
             setApiWeather(response)
         }
-
+        
+        //lo que hacemos es cuando los dos estados coordinatesLat y coordinatesLon ya hayan recoletado la ubicacion actual se ejecute
+        //la funcion consultationWeather para que se haga la consulta ya con las cordenadas
         if(coordinatesLat !== 0 && coordinatesLon !== 0){
             consultationWeather()
         }
     },[coordinatesLon,coordinatesLat])
 
-    /*Aqui cuidamos que el estado de apiWeather no arroje un valor null y insetamos los datos 
-    de la Api Weather a los estados*/
+    /*****VALIDAMOS SI EL ESTADO API WEATHER NO SEA NULL Y TAMBIEN INSETAMOS LOS DATOS DE LA API WEATHER EN LOS ESTADOS*****/
     useEffect(() =>{
         if(apiWeather){
             setTempC(apiWeather.current.temp_c)
@@ -71,7 +73,7 @@ const ContainerWeather = () =>{
         }
     },[apiWeather])
 
-    /*Funcion que convierte la temperatura a celsius a Fahrenheit o al contrario */
+    /*****FUNCION QUE CONVIERTE LA TEMPERATURA DE CELSIUS A FAHRENHEIT O VICERVESA*****/
     const convert = () =>{
         if(tempF === temperatureWeather){
             setTemperatureWeather(tempC)
