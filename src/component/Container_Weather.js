@@ -60,7 +60,6 @@ const ContainerWeather = () =>{
     de la Api Weather a los estados*/
     useEffect(() =>{
         if(apiWeather){
-            console.log(apiWeather)
             setTempC(apiWeather.current.temp_c)
             setTempF(apiWeather.current.temp_f)
             setDescriptionWeather(apiWeather.current.condition.text)
