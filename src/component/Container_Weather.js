@@ -46,7 +46,7 @@ const ContainerWeather = () =>{
     /*Consulta a la Api Weather*/
     useEffect(() =>{
         const consultationWeather = async () =>{
-            const urlWeather = `http://api.weatherapi.com/v1/current.json?key=c7db0c19785644e9a26231420210307&q=${coordinatesLat}, ${coordinatesLon}&aqi=no`
+            const urlWeather = `https://api.weatherapi.com/v1/current.json?key=c7db0c19785644e9a26231420210307&q=${coordinatesLat}, ${coordinatesLon}&aqi=no`
             const response = await fetch(urlWeather).then(response => response.json()).catch(err => err)
             setApiWeather(response)
         }
@@ -59,7 +59,7 @@ const ContainerWeather = () =>{
     /*Aqui cuidamos que el estado de apiWeather no arroje un valor null y insetamos los datos 
     de la Api Weather a los estados*/
     useEffect(() =>{
-        if(apiWeather !== null){
+        if(apiWeather){
             setTempC(apiWeather.current.temp_c)
             setTempF(apiWeather.current.temp_f)
             setDescriptionWeather(apiWeather.current.condition.text)
